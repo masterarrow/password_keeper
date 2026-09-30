@@ -1,0 +1,6 @@
+/target
+.qodo
+.vscode
+.DS_Store
+app.db
+app.db-*

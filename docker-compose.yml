@@ -1,0 +1,25 @@
+services:
+  port-scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: port-scanner
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - target_cache:/app/target
+      - cargo_registry:/usr/local/cargo/registry
+    #command: cargo watch -x run
+    command: tail -f /dev/null
+    networks:
+      - port_scanner_network
+
+networks:
+  port_scanner_network:
+    driver: bridge
+
+volumes:
+  target_cache:
+  cargo_registry:
+
+name: port_scanner

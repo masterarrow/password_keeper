@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO storage (title, description, username, password) VALUES (?, ?, ?, ?);",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "f24ccbe68ebb507c771efdb4399206c280f1fd2e510d5e166930fe23e4ffa56d"
+}

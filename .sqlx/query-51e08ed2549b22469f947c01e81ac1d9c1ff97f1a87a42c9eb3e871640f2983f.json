@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE storage SET title = ?, description = ?, username = ?, password = ? WHERE id = ?;",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "51e08ed2549b22469f947c01e81ac1d9c1ff97f1a87a42c9eb3e871640f2983f"
+}

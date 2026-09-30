@@ -1,0 +1,68 @@
+#!/bin/bash
+
+function help {
+    cat << EOF
+Usage: $0 [ OPTIONS ]
+
+OPTIONS:
+-b|--build - build docker images and run it
+-f|--foreground - run in foreground mode
+-r|--restart - restart containers and volumes
+-c|--clean - remove containers and volumes
+-h|--help - show this message
+EOF
+}
+
+POS_ARGS=()
+
+# parse args&opts
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -b|--build)
+      BUILD=1
+      shift
+      ;;
+    -f|--foreground)
+      FRG=1
+      shift
+      ;;
+    -r|--restart)
+      RS=1
+      shift
+      ;;
+    -c|--clean)
+      CL=1
+      shift
+      ;;
+    -h|--help)
+      help
+      exit
+      ;;
+  esac
+done
+
+if [[ ! -z $RS ]]; then
+  docker-compose restart && exit
+fi
+
+if [[ ! -z $CL ]]; then
+	docker-compose down -v && docker volume rm $(docker volume ls -q) && exit
+fi
+
+# check should we use pre-build container or build it
+if [[ ! -z $BUILD ]]; then
+  docker-compose build --no-cache
+fi
+
+MODE="-d" # run in background by default
+
+if [[ ! -z $FRG ]]; then
+  MODE=""
+fi
+
+COMPOSE_FILE="-f docker-compose.yml"
+if [[ ! -z "$WEB_GW_COMPOSE_FILE" ]]; then
+  COMPOSE_FILE+=$WEB_GW_COMPOSE_FILE
+fi
+
+docker-compose $COMPOSE_FILE up $MODE
