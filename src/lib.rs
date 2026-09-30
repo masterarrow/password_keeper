@@ -542,19 +542,15 @@ fn request_required_input(param: &str) -> String {
  *     int: Selected option
  */
 fn option_selection(options: &[&str]) -> usize {
-    let selection = match Select::with_theme(&ColorfulTheme::default())
+    match Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Please choose an action")
         .items(options)
         .default(0)
         .interact()
     {
         Ok(index) => index,
-        Err(_) => {
-            return 0;
-        }
-    };
-
-    selection
+        Err(_) => 0,
+    }
 }
 
 /**
