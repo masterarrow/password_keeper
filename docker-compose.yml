@@ -1,9 +1,9 @@
 services:
-  port-scanner:
+  password-keeper:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: port-scanner
+    container_name: password-keeper
     working_dir: /app
     volumes:
       - ./:/app
@@ -12,14 +12,14 @@ services:
     #command: cargo watch -x run
     command: tail -f /dev/null
     networks:
-      - port_scanner_network
+      - password_keeper_network
 
 networks:
-  port_scanner_network:
+  password_keeper_network:
     driver: bridge
 
 volumes:
   target_cache:
   cargo_registry:
 
-name: port_scanner
+name: password_keeper
